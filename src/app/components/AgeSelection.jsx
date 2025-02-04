@@ -13,8 +13,8 @@ import {
 import { useFamily } from "../context/FamilyContext";
 
 function FamilyMemberSelector() {
-  const { movePrev, selectedMembers, membersAge, setMembersAge } = useFamily();
-
+  const { movePrev, membersAge, setMembersAge } = useFamily();
+  const multiList = ["Son", "Daughter", "Brother", "Sister"];
   useEffect(() => {
     console.log(membersAge);
   }, []);
@@ -30,7 +30,7 @@ function FamilyMemberSelector() {
 
   const removeMember = (memberId) => {
     setMembersAge(
-      membersAge.filter((membersAge) => membersAge.member !== memberId)
+      membersAge.filter((membersAge) => membersAge.id !== memberId)
     );
   };
 
@@ -55,7 +55,11 @@ function FamilyMemberSelector() {
       </div>
 
       <div className="space-y-6">
-        {membersAge.map((member, index) => (
+        {membersAge.map((member, index) => {
+          const firstOccurrenceId = membersAge.find(
+            (m) => m.member === member.member
+          )?.id;
+          return(
           <div className="flex items-center gap-4">
             <div className="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center">
               <svg
@@ -75,7 +79,7 @@ function FamilyMemberSelector() {
 
             <div className="flex-1">
               <label className="block text-sm mb-1">
-                {member.member === 'Self' ? "Your" : `${member.member}'s`} age
+                {member.member === "Self" ? "Your" : `${member.member}'s`} age
               </label>
               <Select>
                 <SelectTrigger className="w-full">
@@ -90,132 +94,32 @@ function FamilyMemberSelector() {
                 </SelectContent>
               </Select>
             </div>
+            <div className="flex gap-2">
+              {multiList.includes(member.member) && (
+                <>
+                  {firstOccurrenceId != member.id && (
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => removeMember(member.id)}
+                    >
+                      <Minus className="h-4 w-4" />
+                    </Button>
+                  )}
+                  {true && (
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => addMember(member.member)}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  )}
+                </>
+              )}
+            </div>
           </div>
-        ))}
-
-        {/* <div className="space-y-4">
-          {sons.map((son, index) => (
-            <div key={son.id} className="flex items-center gap-4">
-              <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-5 h-5 text-green-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                  />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <label className="block text-sm mb-1">Son's age</label>
-                <Select
-                  value={son.age}
-                  onValueChange={(age) => updateAge("son", son.id, age)}
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select age" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Array.from({ length: 26 }, (_, i) => i).map((age) => (
-                      <SelectItem key={age} value={age.toString()}>
-                        {age} yr
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex gap-2">
-                {sons.length > 1 && (
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() => removeMember("son", son.id)}
-                  >
-                    <Minus className="h-4 w-4" />
-                  </Button>
-                )}
-                {index === sons.length - 1 && (
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() => addMember("son")}
-                  >
-                    <Plus className="h-4 w-4" />
-                  </Button>
-                )}
-              </div>
-            </div>
-          ))}
-        </div> */}
-
-        {/* Daughters */}
-        {/* <div className="space-y-4">
-          {daughters.map((daughter, index) => (
-            <div key={daughter.id} className="flex items-center gap-4">
-              <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-5 h-5 text-purple-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                  />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <label className="block text-sm mb-1">Daughter's age</label>
-                <Select
-                  value={daughter.age}
-                  onValueChange={(age) =>
-                    updateAge("daughter", daughter.id, age)
-                  }
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select age" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Array.from({ length: 26 }, (_, i) => i).map((age) => (
-                      <SelectItem key={age} value={age.toString()}>
-                        {age} yr
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex gap-2">
-                {daughters.length > 1 && (
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() => removeMember("daughter", daughter.id)}
-                  >
-                    <Minus className="h-4 w-4" />
-                  </Button>
-                )}
-                {index === daughters.length - 1 && (
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() => addMember("daughter")}
-                  >
-                    <Plus className="h-4 w-4" />
-                  </Button>
-                )}
-              </div>
-            </div>
-          ))}
-        </div> */}
-
+        )})}
         <Button className="w-full bg-black text-white hover:bg-gray-800">
           Continue
         </Button>
