@@ -4,9 +4,10 @@ import React, { createContext, useContext, useState } from "react";
 const FamilyContext = createContext();
 
 export const FamilyProvider = ({ children }) => {
-  const [selectedMembers, setSelectedMembers] = useState(["Self"]);
-  const [gender, setGender] = useState("");
   const [currentScreen, setCurrentScreen] = useState(1);
+  const [gender, setGender] = useState("");
+  const [userCity,setUserCity] = useState('Bangalore')
+  const [selectedMembers, setSelectedMembers] = useState(["Self"]);
   const [membersAge, setMembersAge] = useState([
     {id: '1', member: 'Self', age: ''}]);
 
@@ -51,6 +52,8 @@ export const FamilyProvider = ({ children }) => {
         setGender,
         membersAge, 
         setMembersAge,
+        userCity,
+        setUserCity
       }}
     >
       {children}

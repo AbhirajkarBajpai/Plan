@@ -5,18 +5,19 @@ import { ChevronLeft, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Building2 } from "lucide-react"
+import { useFamily } from "../context/FamilyContext"
 
 function CitySelector() {
-  const [selectedCity, setSelectedCity] = useState("Bangalore")
+  const {userCity, setUserCity} = useFamily();
 
   const popularCities = ["Mumbai", "Bangalore", "Chennai", "Delhi", "Goa", "Kochi", "Kolkata", "Mangalore", "Hyderabad"]
 
   const handleCitySelect = (city) => {
-    setSelectedCity(city)
+    setUserCity(city)
   }
 
   const clearSelection = () => {
-    setSelectedCity("")
+    setUserCity("")
   }
 
   return (
@@ -32,12 +33,12 @@ function CitySelector() {
       <div className="relative mb-6">
         <Input
           type="text"
-          value={selectedCity}
-          onChange={(e) => setSelectedCity(e.target.value)}
+          value={userCity}
+          onChange={(e) => setUserCity(e.target.value)}
           className="w-full pl-4 pr-10 py-2 border rounded-lg"
           placeholder="Search city"
         />
-        {selectedCity && (
+        {userCity && (
           <button onClick={clearSelection} className="absolute right-3 top-1/2 -translate-y-1/2">
             <X className="h-4 w-4 text-gray-500" />
           </button>
@@ -50,8 +51,8 @@ function CitySelector() {
           {popularCities.map((city) => (
             <Button
               key={city}
-              variant={selectedCity === city ? "default" : "outline"}
-              className={`rounded-full ${selectedCity === city ? "bg-black text-white" : "bg-white"}`}
+              variant={userCity === city ? "default" : "outline"}
+              className={`rounded-full ${userCity === city ? "bg-black text-white" : "bg-white"}`}
               onClick={() => handleCitySelect(city)}
             >
               {city}
