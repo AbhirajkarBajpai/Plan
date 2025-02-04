@@ -13,7 +13,7 @@ import {
 import { useFamily } from "../context/FamilyContext";
 
 function FamilyMemberSelector() {
-  const { movePrev, membersAge, setMembersAge } = useFamily();
+  const { movePrev, moveNext, membersAge, setMembersAge } = useFamily();
   const multiList = ["Son", "Daughter", "Brother", "Sister"];
   useEffect(() => {
     console.log(membersAge);
@@ -35,7 +35,6 @@ function FamilyMemberSelector() {
   };
 
   const updateAge = (id, age) => {
-    setSons(sons.map((son) => (son.id === id ? { ...son, age } : son)));
     setMembersAge(
       membersAge.map((member) =>
         member.id === id ? { ...member, age: age } : member
@@ -59,68 +58,72 @@ function FamilyMemberSelector() {
           const firstOccurrenceId = membersAge.find(
             (m) => m.member === member.member
           )?.id;
-          return(
-          <div className="flex items-center gap-4">
-            <div className="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center">
-              <svg
-                className="w-5 h-5 text-pink-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg>
-            </div>
+          return (
+            <div key={index} className="flex items-center gap-4">
+              <div className="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center">
+                <svg
+                  className="w-5 h-5 text-pink-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
+                </svg>
+              </div>
 
-            <div className="flex-1">
-              <label className="block text-sm mb-1">
-                {member.member === "Self" ? "Your" : `${member.member}'s`} age
-              </label>
-              <Select>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select age" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Array.from({ length: 83 }, (_, i) => i + 18).map((age) => (
-                    <SelectItem key={age} value={age.toString()}>
-                      {age} yr
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <div className="flex-1">
+                <label className="block text-sm mb-1">
+                  {member.member === "Self" ? "Your" : `${member.member}'s`} age
+                </label>
+                <Select
+                  value={member.age}
+                  onValueChange={(age) => updateAge(member.id, age)}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select age" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Array.from({ length: 83 }, (_, i) => i + 18).map((age) => (
+                      <SelectItem key={age} value={age.toString()}>
+                        {age} yr
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex gap-2">
+                {multiList.includes(member.member) && (
+                  <>
+                    {firstOccurrenceId != member.id && (
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => removeMember(member.id)}
+                      >
+                        <Minus className="h-4 w-4" />
+                      </Button>
+                    )}
+                    {true && (
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => addMember(member.member)}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
-            <div className="flex gap-2">
-              {multiList.includes(member.member) && (
-                <>
-                  {firstOccurrenceId != member.id && (
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => removeMember(member.id)}
-                    >
-                      <Minus className="h-4 w-4" />
-                    </Button>
-                  )}
-                  {true && (
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => addMember(member.member)}
-                    >
-                      <Plus className="h-4 w-4" />
-                    </Button>
-                  )}
-                </>
-              )}
-            </div>
-          </div>
-        )})}
-        <Button className="w-full bg-black text-white hover:bg-gray-800">
+          );
+        })}
+        <Button onClick={moveNext} className="w-full bg-black text-white hover:bg-gray-800">
           Continue
         </Button>
       </div>
