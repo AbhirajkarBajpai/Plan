@@ -4,9 +4,8 @@ import React, { createContext, useContext, useState } from 'react';
 const FamilyContext = createContext();
 
 export const FamilyProvider = ({ children }) => {
-  const [selectedMembers, setSelectedMembers] = useState([]);
-  const [familyAges, setFamilyAges] = useState({});
-  const [showMore, setShowMore] = useState(false);
+  const [selectedMembers, setSelectedMembers] = useState(["self"]);
+  const [gender, setGender] = useState('');
   const [currentScreen, setCurrentScreen] = useState(1);
 
   const toggleMember = (member) => {
@@ -15,22 +14,29 @@ export const FamilyProvider = ({ children }) => {
     );
   };
 
-  const addChild = (type) => {
-    setFamilyAges((prev) => ({ ...prev, [type + Object.keys(prev).length]: '' }));
-  };
+  function moveNext(){
+    setCurrentScreen(currentScreen+1);
+  }
+  function movePrev(){
+    setCurrentScreen(currentScreen-1);
+  }
 
-  const removeChild = (key) => {
-    setFamilyAges((prev) => {
-      const updated = { ...prev };
-      delete updated[key];
-      return updated;
-    });
-  };
+  // const addChild = (type) => {
+  //   setFamilyAges((prev) => ({ ...prev, [type + Object.keys(prev).length]: '' }));
+  // };
+
+  // const removeChild = (key) => {
+  //   setFamilyAges((prev) => {
+  //     const updated = { ...prev };
+  //     delete updated[key];
+  //     return updated;
+  //   });
+  // };
 
   return (
     <FamilyContext.Provider value={{
-      selectedMembers, toggleMember, familyAges, setFamilyAges, addChild, removeChild,
-      showMore, setShowMore, currentScreen, setCurrentScreen
+      selectedMembers, setSelectedMembers, toggleMember,
+       currentScreen,moveNext,movePrev,gender, setGender
     }}>
       {children}
     </FamilyContext.Provider>

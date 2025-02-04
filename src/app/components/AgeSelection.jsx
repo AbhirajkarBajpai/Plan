@@ -10,8 +10,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useFamily } from '../context/FamilyContext'
 
 function FamilyMemberSelector() {
+  const {movePrev}=useFamily();
   const [yourAge, setYourAge] = useState('33')
   const [wifeAge, setWifeAge] = useState('31')
   const [sons, setSons] = useState([{ id: '1', age: '' }])
@@ -45,8 +47,8 @@ function FamilyMemberSelector() {
   return (
     <div className="max-w-xl mx-auto p-6">
       <div className="flex items-center mb-6">
-        <Button variant="ghost" className="mr-2">
-          <ChevronLeft className="h-5 w-5" />
+        <Button variant="ghost" className="mr-2" onClick={movePrev} >
+          <ChevronLeft className="h-5 w-5"/>
         </Button>
         <h1 className="text-2xl font-semibold">Select age of covered member(s)</h1>
       </div>

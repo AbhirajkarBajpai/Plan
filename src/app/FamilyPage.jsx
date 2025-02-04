@@ -7,10 +7,10 @@ import CitySelector from "./components/CitySelect";
 import MedicalHistory from "./components/MedicalHistory";
 
 const FamilyPlanPage = () => {
-  const [index, setIndex] = useState(4);
+  const {currentScreen} = useFamily();
   let content;
 
-  switch (index) {
+  switch (currentScreen) {
     case 1:
       content = <MemberSelection />;
       break;
