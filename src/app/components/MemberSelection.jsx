@@ -10,11 +10,11 @@ import { useFamily } from "../context/FamilyContext";
 const cn = (...classes) => classes.filter(Boolean).join(" ");
 
 export default function InsuranceSelector() {
-  const { moveNext, gender, setGender, selectedMembers, setSelectedMembers } =
+  const { moveNext, gender, setGender, selectedMembers, toggleMember } =
     useFamily();
   const [showAllMembers, setShowAllMembers] = useState(false);
 
-  const initialMembers = [
+  const Members = [
     { id: "self", label: "Self", icon: User },
     { id: "wife", label: "Wife", icon: User },
     { id: "son", label: "Son", icon: User },
@@ -27,19 +27,13 @@ export default function InsuranceSelector() {
     { id: "brother", label: "Brother", icon: User },
     { id: "sister", label: "Sister", icon: User },
     { id: "grandfather", label: "Grandfather", icon: User },
+    { id: "grandmother", label: "Grandmother", icon: User },
   ];
 
   const members = showAllMembers
-    ? [...initialMembers, ...additionalMembers]
-    : initialMembers;
+    ? [...Members, ...additionalMembers]
+    : Members;
 
-  const toggleMember = (memberId) => {
-    setSelectedMembers((prev) =>
-      prev.includes(memberId)
-        ? prev.filter((id) => id !== memberId)
-        : [...prev, memberId]
-    );
-  };
 
   const toggleShowAllMembers = () => {
     setShowAllMembers((prev) => !prev);
@@ -94,11 +88,11 @@ export default function InsuranceSelector() {
                   key={member.id}
                   className={cn(
                     "p-4 cursor-pointer transition-colors",
-                    selectedMembers.includes(member.id)
+                    selectedMembers.includes(member.label)
                       ? "bg-blue-50 border-blue-200"
                       : "hover:bg-gray-50"
                   )}
-                  onClick={() => toggleMember(member.id)}
+                  onClick={() => toggleMember(member.label)}
                 >
                   <div className="flex items-center gap-3">
                     <Icon className="h-5 w-5 text-gray-500" />
