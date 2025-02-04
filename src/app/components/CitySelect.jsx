@@ -8,7 +8,7 @@ import { Building2 } from "lucide-react"
 import { useFamily } from "../context/FamilyContext"
 
 function CitySelector() {
-  const {userCity, setUserCity} = useFamily();
+  const {moveNext, userCity, setUserCity} = useFamily();
 
   const popularCities = ["Mumbai", "Bangalore", "Chennai", "Delhi", "Goa", "Kochi", "Kolkata", "Mangalore", "Hyderabad"]
 
@@ -70,7 +70,7 @@ function CitySelector() {
         </p>
       </div>
 
-      <Button className="w-full bg-black text-white hover:bg-gray-800">Continue</Button>
+      <Button onClick={moveNext} className="w-full bg-black text-white hover:bg-gray-800">Continue</Button>
     </div>
   )
 }

@@ -5,8 +5,10 @@ import { ChevronLeft, ChevronRight, LightbulbIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Switch } from "@/components/ui/switch"
+import { useFamily } from "../context/FamilyContext"
 
 function MedicalHistory() {
+  const {moveNext,movePrev}=useFamily();
   const [conditions, setConditions] = useState({
     diabetes: false,
     bloodPressure: false,
@@ -44,7 +46,7 @@ function MedicalHistory() {
   return (
     <div className="max-w-xl mx-auto p-6">
       <div className="flex items-center mb-6">
-        <Button variant="ghost" className="mr-2">
+        <Button onClick={movePrev} variant="ghost" className="mr-2">
           <ChevronLeft className="h-5 w-5" />
         </Button>
         <span className="text-sm text-gray-500">Back</span>
@@ -89,7 +91,7 @@ function MedicalHistory() {
         <Switch checked={whatsappUpdates} onCheckedChange={setWhatsappUpdates} />
       </div>
 
-      <Button className="w-full bg-black text-white hover:bg-gray-800">
+      <Button onClick={moveNext} className="w-full bg-black text-white hover:bg-gray-800">
         Continue
         <ChevronRight className="h-4 w-4 ml-2" />
       </Button>
