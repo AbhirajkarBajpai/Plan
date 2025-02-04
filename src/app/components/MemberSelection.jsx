@@ -59,12 +59,11 @@ export default function InsuranceSelector() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="max-w-2xl w-full space-y-8 bg-white p-8 rounded-xl shadow-sm">
-        <h1 className="text-3xl font-bold text-center text-gray-900">
+    <div className="min-h-screen bg-gray-50 flex flex-col space-y-10 items-center justify-center p-4">
+      <h1 className="text-3xl font-bold text-center text-gray-900">
           Find the best plan for your family
         </h1>
-
+      <div className="max-w-2xl w-full space-y-8 bg-white p-8 rounded-xl shadow-sm">
         <div className="flex justify-center gap-2">
           <Button
             variant={gender === "male" ? "default" : "outline"}
