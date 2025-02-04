@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { ChevronLeft, Plus, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +13,13 @@ import {
 import { useFamily } from "../context/FamilyContext";
 
 function FamilyMemberSelector() {
-  const { movePrev, moveNext, membersAge, setMembersAge } = useFamily();
+  const {
+    movePrev,
+    moveNext,
+    membersAge,
+    setMembersAge,
+    isAllAgeSet,
+  } = useFamily();
   const multiList = ["Son", "Daughter", "Brother", "Sister"];
   useEffect(() => {
     console.log(membersAge);
@@ -123,7 +129,10 @@ function FamilyMemberSelector() {
             </div>
           );
         })}
-        <Button onClick={moveNext} className="w-full bg-black text-white hover:bg-gray-800">
+        <Button
+          onClick={()=>{isAllAgeSet ? moveNext() : alert("select all members age!")}}
+          className="w-full bg-black text-white hover:bg-gray-800"
+        >
           Continue
         </Button>
       </div>

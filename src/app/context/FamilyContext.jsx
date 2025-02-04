@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const FamilyContext = createContext();
 
@@ -10,7 +10,7 @@ export const FamilyProvider = ({ children }) => {
   const [selectedMembers, setSelectedMembers] = useState(["Self"]);
   const [membersAge, setMembersAge] = useState([
     {id: '1', member: 'Self', age: ''}]);
-
+  const [isAllAgeSet, setIsAllAgeSet] = useState(false);
   const toggleMember = (memberId) => {
     const toggleKey = membersAge.some(member => member.member === memberId);
     console.log(toggleKey);
@@ -30,6 +30,13 @@ export const FamilyProvider = ({ children }) => {
       setMembersAge(membersAge.filter(membersAge => membersAge.member !== memberId))
     }
   };
+
+  useEffect(()=>{
+    const allAgesAreNumbers = membersAge.every(
+      (m) => m.age !== ''
+    );
+    setIsAllAgeSet(allAgesAreNumbers);
+  },[membersAge]);
 
   function moveNext() {
     setCurrentScreen(currentScreen + 1);
@@ -53,7 +60,9 @@ export const FamilyProvider = ({ children }) => {
         membersAge, 
         setMembersAge,
         userCity,
-        setUserCity
+        setUserCity,
+        isAllAgeSet, 
+        setIsAllAgeSet,
       }}
     >
       {children}
