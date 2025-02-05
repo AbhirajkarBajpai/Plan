@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import AgeSelection from "./components/AgeSelection";
-import MemberSelection from "./components/MemberSelection";
+import AgeSelection from "./components/PageComp/AgeSelection";
+import MemberSelection from "./components/PageComp/MemberSelection";
 import { useFamily } from "./context/FamilyContext";
-import CitySelector from "./components/CitySelect";
-import MedicalHistory from "./components/MedicalHistory";
+import CitySelector from "./components/PageComp/CitySelect";
+import MedicalHistory from "./components/PageComp/MedicalHistory";
 
 const FamilyPlanPage = () => {
   const { currentScreen } = useFamily();

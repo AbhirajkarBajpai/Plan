@@ -4,8 +4,8 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useFamily } from "../context/FamilyContext";
-import { showAlertFn } from "../GlobalAlert";
+import { useFamily } from "../../context/FamilyContext";
+import { showAlertFn } from "../../GlobalAlert";
 
 // Utility function to conditionally join classNames
 const cn = (...classes) => classes.filter(Boolean).join(" ");

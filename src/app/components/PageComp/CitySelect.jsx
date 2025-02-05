@@ -1,13 +1,10 @@
 "use client";
-
-import { useState } from "react";
-import { ChevronLeft, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Building2 } from "lucide-react";
-import { useFamily } from "../context/FamilyContext";
-import Back from "./Back";
-import { showAlertFn } from "../GlobalAlert";
+import { Building2, X } from "lucide-react";
+import { useFamily } from "../../context/FamilyContext";
+import Back from "../Back";
+import { showAlertFn } from "../../GlobalAlert";
 
 function CitySelector() {
   const { movePrev, moveNext, userCity, setUserCity } = useFamily();

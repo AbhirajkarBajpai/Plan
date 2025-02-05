@@ -10,10 +10,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useFamily } from "../context/FamilyContext";
-import Image from "next/image";
-import Back from "./Back";
-import { showAlertFn } from "../GlobalAlert";
+import { useFamily } from "../../context/FamilyContext";
+import Back from ".././Back";
+import { showAlertFn } from "../../GlobalAlert";
 
 function FamilyMemberSelector() {
   const { movePrev, moveNext, membersAge, setMembersAge, isAllAgeSet } =

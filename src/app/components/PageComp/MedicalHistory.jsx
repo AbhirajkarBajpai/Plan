@@ -5,8 +5,8 @@ import { ChevronLeft, ChevronRight, LightbulbIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Switch } from "@/components/ui/switch"
-import { useFamily } from "../context/FamilyContext"
-import Back from "./Back"
+import { useFamily } from "../../context/FamilyContext"
+import Back from "./../Back"
 
 function MedicalHistory() {
   const {moveNext,movePrev}=useFamily();
