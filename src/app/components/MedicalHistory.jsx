@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Switch } from "@/components/ui/switch"
 import { useFamily } from "../context/FamilyContext"
+import Back from "./Back"
 
 function MedicalHistory() {
   const {moveNext,movePrev}=useFamily();
@@ -44,15 +45,12 @@ function MedicalHistory() {
   const [whatsappUpdates, setWhatsappUpdates] = useState(false)
 
   return (
-    <div className="max-w-xl mx-auto p-6">
+    <div className="h-[100vh] w-[70%] flex flex-col justify-center align-middle mx-auto p-6">
       <div className="flex items-center mb-6">
-        <Button onClick={movePrev} variant="ghost" className="mr-2">
-          <ChevronLeft className="h-5 w-5" />
-        </Button>
-        <span className="text-sm text-gray-500">Back</span>
+      <Back onPress={movePrev} isShow={1}/>
       </div>
 
-      <h1 className="text-2xl font-semibold text-center mb-4">Medical History</h1>
+      <h1 className="text-3xl font-bold text-center mb-4">Medical History</h1>
 
       <p className="text-center text-gray-600 mb-8">
         Do any member(s) have any existing illnesses for which they take regular medication?

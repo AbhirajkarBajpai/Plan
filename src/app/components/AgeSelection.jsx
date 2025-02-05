@@ -13,6 +13,7 @@ import {
 import { useFamily } from "../context/FamilyContext";
 import Image from "next/image";
 import Back from "./Back";
+import { showAlertFn } from "../GlobalAlert";
 
 function FamilyMemberSelector() {
   const { movePrev, moveNext, membersAge, setMembersAge, isAllAgeSet } =
@@ -46,7 +47,7 @@ function FamilyMemberSelector() {
   };
 
   return (
-    <div className="w-[70%] h-[100vh] flex flex-col justify-center align-middle mx-auto p-6">
+    <div className="w-[60%] h-[100vh] flex flex-col justify-center align-middle mx-auto p-6">
       <Back onPress={movePrev} />
       <div className="flex items-center justify-center mb-6">
         <h1 className="text-3xl font-semibold">
@@ -126,7 +127,7 @@ function FamilyMemberSelector() {
         })}
         <Button
           onClick={() => {
-            isAllAgeSet ? moveNext() : alert("select all members age!");
+            isAllAgeSet ? moveNext() : showAlertFn("error", "select all members age!");
           }}
           className="w-full bg-black text-white hover:bg-gray-800"
         >

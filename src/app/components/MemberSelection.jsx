@@ -5,6 +5,7 @@ import { ChevronDown, ChevronUp, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useFamily } from "../context/FamilyContext";
+import { showAlertFn } from "../GlobalAlert";
 
 // Utility function to conditionally join classNames
 const cn = (...classes) => classes.filter(Boolean).join(" ");
@@ -41,7 +42,7 @@ export default function InsuranceSelector() {
 
   function handleContinue() {
     if (!gender || selectedMembers.length === 0) {
-      alert(!gender && selectedMembers.length === 0 
+      showAlertFn("error",!gender && selectedMembers.length === 0 
         ? "Select Members and Gender" 
         : !gender 
           ? "Select Gender!" 
