@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Building2 } from "lucide-react";
 import { useFamily } from "../context/FamilyContext";
 import Back from "./Back";
+import { showAlertFn } from "../GlobalAlert";
 
 function CitySelector() {
   const { movePrev, moveNext, userCity, setUserCity } = useFamily();
@@ -87,7 +88,7 @@ function CitySelector() {
       </div>
 
       <Button
-        onClick={moveNext}
+        onClick={userCity==="" ? ()=>showAlertFn("error", "select your City!") : moveNext}
         className="w-full bg-black text-white hover:bg-gray-800"
       >
         Continue
