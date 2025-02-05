@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect} from "react";
-import { ChevronLeft, Plus, Minus } from "lucide-react";
+import React, { useEffect } from "react";
+import { Plus, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -11,15 +11,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useFamily } from "../context/FamilyContext";
+import Image from "next/image";
+import Back from "./Back";
 
 function FamilyMemberSelector() {
-  const {
-    movePrev,
-    moveNext,
-    membersAge,
-    setMembersAge,
-    isAllAgeSet,
-  } = useFamily();
+  const { movePrev, moveNext, membersAge, setMembersAge, isAllAgeSet } =
+    useFamily();
   const multiList = ["Son", "Daughter", "Brother", "Sister"];
   useEffect(() => {
     console.log(membersAge);
@@ -49,12 +46,10 @@ function FamilyMemberSelector() {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6">
-      <div className="flex items-center mb-6">
-        <Button variant="ghost" className="mr-2" onClick={movePrev}>
-          <ChevronLeft className="h-5 w-5" />
-        </Button>
-        <h1 className="text-2xl font-semibold">
+    <div className="w-[70%] h-[100vh] flex flex-col justify-center align-middle mx-auto p-6">
+      <Back onPress={movePrev} />
+      <div className="flex items-center justify-center mb-6">
+        <h1 className="text-3xl font-semibold">
           Select age of covered member(s)
         </h1>
       </div>
@@ -83,7 +78,7 @@ function FamilyMemberSelector() {
               </div>
 
               <div className="flex-1">
-                <label className="block text-sm mb-1">
+                <label className="block text-sm font-medium mb-1">
                   {member.member === "Self" ? "Your" : `${member.member}'s`} age
                 </label>
                 <Select
@@ -130,7 +125,9 @@ function FamilyMemberSelector() {
           );
         })}
         <Button
-          onClick={()=>{isAllAgeSet ? moveNext() : alert("select all members age!")}}
+          onClick={() => {
+            isAllAgeSet ? moveNext() : alert("select all members age!");
+          }}
           className="w-full bg-black text-white hover:bg-gray-800"
         >
           Continue
